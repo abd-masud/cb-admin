@@ -19,8 +19,8 @@ type QuickAction = {
 export const QuickActions = () => {
   const quickActions: QuickAction[] = [
     {
-      title: "Add Customers",
-      description: "Create new customer profiles",
+      title: "Add Users",
+      description: "Create new user profiles",
       icon: (
         <FiUsers
           className="group-hover:scale-110 transition-transform"
@@ -28,7 +28,7 @@ export const QuickActions = () => {
         />
       ),
       textColor: "text-blue-600",
-      link: "/customers/add-customers",
+      link: "/users/add-users",
       effect: "bg-blue-50 hover:bg-blue-100 border-blue-300",
     },
     {

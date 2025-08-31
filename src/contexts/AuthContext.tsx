@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("cb_user");
+    const storedUser = localStorage.getItem("cb_admin");
 
     if (storedUser) {
       try {
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         };
         setUser(userData);
       } catch {
-        localStorage.removeItem("cb_user");
+        localStorage.removeItem("cb_admin");
         router.push("/");
       }
     } else {

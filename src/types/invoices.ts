@@ -1,4 +1,4 @@
-import { Customers } from "./customers";
+import { Users } from "./users";
 import { Products } from "./products";
 
 export type InvoiceItem = {
@@ -20,7 +20,7 @@ export type PaymentEntry = {
 
 export type InvoiceData = {
     id: number;
-    customer: string | Customers;
+    user: string | Users;
     items: string | InvoiceItem[];
     invoice_id: string;
     date: string;
@@ -64,10 +64,10 @@ export interface InvoicesItemProps {
     InvoiceId: number;
 }
 
-export type CustomerOption = {
+export type UserOption = {
     value: number;
     label: string;
-    customer: Customers;
+    user: Users;
 };
 
 export type ProductOption = {
@@ -76,8 +76,8 @@ export type ProductOption = {
     product: Products;
 };
 
-export interface CustomerInvoicesListProps {
-    CustomerId: number;
+export interface UserInvoicesListProps {
+    UserId: number;
 }
 
 export interface PartialInvoicesItemProps {
@@ -94,7 +94,7 @@ export interface SubInvoice {
 export interface FlattenedInvoice {
     id: number;
     invoice_id: string;
-    customer: {
+    user: {
         name: string;
     };
     sub_invoice?: SubInvoice[];
@@ -105,7 +105,7 @@ export interface PartialInvoicesTableProps {
     invoices: Array<{
         id: number;
         invoice_id: string;
-        customer: {
+        user: {
             name: string;
         };
         sub_invoice?: SubInvoice[];

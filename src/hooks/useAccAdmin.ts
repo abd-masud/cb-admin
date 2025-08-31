@@ -3,12 +3,12 @@
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
-export const useAccUserRedirect = () => {
+export const useAccAdminRedirect = () => {
     const router = useRouter();
     const pathname = usePathname();
     useEffect(() => {
-        const accUser = localStorage.getItem("cb_user");
-        if (!accUser && pathname !== "/auth/employee-login") {
+        const accAdmin = localStorage.getItem("cb_admin");
+        if (!accAdmin && pathname !== "/auth/employee-login") {
             router.push("/");
         }
     }, [router, pathname]);

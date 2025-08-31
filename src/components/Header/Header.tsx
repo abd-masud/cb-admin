@@ -9,12 +9,11 @@ import { useAuth } from "@/contexts/AuthContext";
 import { FaCalculator, FaUser } from "react-icons/fa";
 import { FaKey } from "react-icons/fa6";
 import { FaRightFromBracket } from "react-icons/fa6";
-import { signOut } from "next-auth/react";
 import { VscThreeBars } from "react-icons/vsc";
 import { SiConvertio } from "react-icons/si";
 import { useState } from "react";
 import { MdFullscreen, MdOutlineFullscreenExit } from "react-icons/md";
-import { useAccUserRedirect } from "@/hooks/useAccUser";
+import { useAccAdminRedirect } from "@/hooks/useAccAdmin";
 import { CalculatorModal } from "./Calculator";
 import { ConverterModal } from "./Converter";
 
@@ -28,7 +27,7 @@ export const Header = ({ toggleSidebar }: HeaderProps) => {
   const [isConverterVisible, setIsConverterVisible] = useState(false);
   const { user } = useAuth();
   const router = useRouter();
-  useAccUserRedirect();
+  useAccAdminRedirect();
   if (!user?.id) return;
 
   const toggleFullScreen = () => {
@@ -59,12 +58,8 @@ export const Header = ({ toggleSidebar }: HeaderProps) => {
 
   const handleSignOut = async () => {
     try {
-      localStorage.removeItem("cb_user");
+      localStorage.removeItem("cb_admin");
       localStorage.removeItem("userEmail");
-      await signOut({
-        redirect: false,
-        callbackUrl: "/auth/login",
-      });
       router.push("/auth/login");
     } catch {}
   };
@@ -77,24 +72,22 @@ export const Header = ({ toggleSidebar }: HeaderProps) => {
           <p className="text-[13px] text-[#797c8b] capitalize">{user?.role}</p>
         </div>
       </div>
-      {user?.role?.toLowerCase() == "admin" && (
-        <div className="flex flex-col gap-1 my-3 border-b">
-          <Link
-            className="flex items-center bg-white text-black hover:bg-[#EDF2F6] hover:text-[#00A3FF] transition-all duration-300  px-3 py-2 rounded text-[14px]"
-            href={"/profile"}
-          >
-            <FaUser className="text-[12px] mr-3" />
-            <span>My Profile</span>
-          </Link>
-          <Link
-            className="flex items-center bg-white text-black hover:bg-[#EDF2F6] hover:text-[#00A3FF] transition-all duration-300  px-3 py-2 rounded text-[14px] mb-3"
-            href={"/auth/change-password"}
-          >
-            <FaKey className="text-[12px] mr-3" />
-            <span>Change Password</span>
-          </Link>
-        </div>
-      )}
+      <div className="flex flex-col gap-1 my-3 border-b">
+        <Link
+          className="flex items-center bg-white text-black hover:bg-[#EDF2F6] hover:text-[#00A3FF] transition-all duration-300  px-3 py-2 rounded text-[14px]"
+          href={"/profile"}
+        >
+          <FaUser className="text-[12px] mr-3" />
+          <span>My Profile</span>
+        </Link>
+        <Link
+          className="flex items-center bg-white text-black hover:bg-[#EDF2F6] hover:text-[#00A3FF] transition-all duration-300  px-3 py-2 rounded text-[14px] mb-3"
+          href={"/auth/change-password"}
+        >
+          <FaKey className="text-[12px] mr-3" />
+          <span>Change Password</span>
+        </Link>
+      </div>
       <button
         className="flex items-center bg-red-500 text-white hover:bg-red-600 cursor-pointer transition-all duration-300  py-2 px-5 rounded-md ml-3 font-[500] my-2"
         onClick={handleSignOut}

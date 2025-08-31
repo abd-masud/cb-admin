@@ -63,7 +63,7 @@ export const NewPasswordComponent = () => {
       });
 
       if (response.ok) {
-        localStorage.removeItem("cb_user");
+        localStorage.removeItem("cb_admin");
         localStorage.removeItem("userEmail");
         router.push("/auth/login");
       } else {

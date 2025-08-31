@@ -35,7 +35,7 @@ export const EmployeeLoginComponent = () => {
       if (response.ok) {
         const { token, user: userData } = await response.json();
         setUser(userData);
-        localStorage.setItem("cb_user", token);
+        localStorage.setItem("cb_admin", token);
         window.location.href = "/dashboard";
       } else {
         const errorData = await response.json().catch(() => ({}));

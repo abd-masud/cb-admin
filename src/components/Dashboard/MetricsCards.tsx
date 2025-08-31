@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/contexts/AuthContext";
-import { CustomerApiResponse, Customers } from "@/types/customers";
+import { UserApiResponse, Users } from "@/types/users";
 import { InvoiceApiResponse, InvoiceData } from "@/types/invoices";
 import { ProductApiResponse, Products } from "@/types/products";
 import Link from "next/link";
@@ -12,7 +12,7 @@ export const MetricsCards = () => {
   const { user } = useAuth();
   const [invoicesData, setInvoicesData] = useState<InvoiceData[]>([]);
   const [productsData, setProductsData] = useState<Products[]>([]);
-  const [customersData, setCustomersData] = useState<Customers[]>([]);
+  const [usersData, setUsersData] = useState<Users[]>([]);
   const [currencyCode, setCurrencyCode] = useState("USD");
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -56,23 +56,23 @@ export const MetricsCards = () => {
     }
   }, [user?.id]);
 
-  const fetchCustomers = useCallback(async () => {
+  const fetchUsers = useCallback(async () => {
     if (!user?.id) return;
 
     try {
-      const response = await fetch(`/api/customers?user_id=${user.id}`, {
+      const response = await fetch(`/api/users?user_id=${user.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const json: CustomerApiResponse = await response.json();
+      const json: UserApiResponse = await response.json();
       if (!response.ok || !json.success) {
-        throw new Error(json.message || "Failed to fetch customers");
+        throw new Error(json.message || "Failed to fetch users");
       }
-      setCustomersData(json.data);
+      setUsersData(json.data);
     } catch (error) {
-      console.error("Error fetching customers:", error);
+      console.error("Error fetching users:", error);
     }
   }, [user?.id]);
 
@@ -111,7 +111,7 @@ export const MetricsCards = () => {
       await Promise.all([
         fetchInvoices(),
         fetchProducts(),
-        fetchCustomers(),
+        fetchUsers(),
         fetchCurrency(),
       ]);
     } catch (error) {
@@ -119,7 +119,7 @@ export const MetricsCards = () => {
     } finally {
       setLoading(false);
     }
-  }, [fetchInvoices, fetchProducts, fetchCustomers, fetchCurrency]);
+  }, [fetchInvoices, fetchProducts, fetchUsers, fetchCurrency]);
 
   useEffect(() => {
     if (user) {
@@ -139,7 +139,7 @@ export const MetricsCards = () => {
     const totalProducts = new Set(
       productsData.map((product) => product.product_id)
     ).size;
-    const totalCustomers = customersData.length;
+    const totalUsers = usersData.length;
 
     return [
       {
@@ -164,11 +164,11 @@ export const MetricsCards = () => {
         link: "/products/products-list",
       },
       {
-        title: "Customers",
-        value: `${totalCustomers.toString()}`,
+        title: "Users",
+        value: `${totalUsers.toString()}`,
         change: <span className="text-green-600">Active</span>,
         icon: <FiUsers className="text-purple-500" size={24} />,
-        link: "/customers/customers-list",
+        link: "/users/users-list",
       },
     ];
   };

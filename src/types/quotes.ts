@@ -1,4 +1,4 @@
-import { Customers } from "./customers";
+import { Users } from "./users";
 import { Products } from "./products";
 
 export type QuoteItem = {
@@ -13,7 +13,7 @@ export type QuoteItem = {
 
 export type QuoteData = {
     id: number;
-    customer: Customers;
+    user: Users;
     items: QuoteItem[];
     quote_id: string;
     date: string;
@@ -52,10 +52,10 @@ export interface QuotesItemProps {
     QuoteId: number;
 }
 
-export type CustomerOption = {
+export type UserOption = {
     value: number;
     label: string;
-    customer: Customers;
+    user: Users;
 };
 
 export type ProductOption = {
@@ -64,6 +64,6 @@ export type ProductOption = {
     product: Products;
 };
 
-export interface CustomerQuotesListProps {
-    CustomerId: number;
+export interface UserQuotesListProps {
+    UserId: number;
 }

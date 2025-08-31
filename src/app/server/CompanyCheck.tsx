@@ -125,7 +125,7 @@ export default function CompanyCheck({
             <button
               onClick={async () => {
                 setShowInactiveModal(false);
-                localStorage.removeItem("cb_user");
+                localStorage.removeItem("cb_admin");
                 localStorage.removeItem("userEmail");
                 await signOut({
                   redirect: false,

@@ -3,11 +3,10 @@
 import Image from "next/image";
 import logo from "../../../public/images/logo.webp";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaXmark } from "react-icons/fa6";
 import { useAuth } from "@/contexts/AuthContext";
-import { useSession } from "next-auth/react";
 
 export const LoginComponent = () => {
   const [email, setEmail] = useState("");
@@ -15,15 +14,7 @@ export const LoginComponent = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { setUser } = useAuth();
-  const { data: session, status } = useSession();
   const [signLoading, setSignLoading] = useState(false);
-
-  useEffect(() => {
-    if (status == "authenticated" && session?.user?.accessToken) {
-      localStorage.setItem("cb_user", session.user.accessToken);
-      window.location.href = "/dashboard";
-    }
-  }, [session, status, router]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,7 +37,7 @@ export const LoginComponent = () => {
       if (response.ok) {
         const { token, user: userData } = await response.json();
         setUser(userData);
-        localStorage.setItem("cb_user", token);
+        localStorage.setItem("cb_admin", token);
         router.push("/dashboard");
       } else {
         const errorData = await response.json().catch(() => ({}));

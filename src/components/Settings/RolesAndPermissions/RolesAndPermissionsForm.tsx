@@ -15,7 +15,7 @@ import styled from "styled-components";
 
 const SIDEBAR_MODULES = [
   "suppliers",
-  "customers",
+  "users",
   "products",
   "quotes",
   "invoices",

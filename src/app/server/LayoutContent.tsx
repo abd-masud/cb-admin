@@ -4,20 +4,15 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { SideBar } from "@/components/SideBar/SideBar";
 import { Header } from "@/components/Header/Header";
-import { AnimatePresence, motion } from "framer-motion";
 import CompanyCheck from "./CompanyCheck";
 
 const HIDDEN_PAGES = [
   "/",
-  "/terms-and-conditions",
-  "/privacy-policy",
   "/auth/login",
   "/auth/sign-up",
   "/auth/forgot-password",
   "/auth/verify-otp",
   "/auth/new-password",
-  "/auth/employee-login",
-  "/admin",
 ] as const;
 
 export default function LayoutContent({
@@ -66,18 +61,7 @@ export default function LayoutContent({
             <Header toggleSidebar={toggleSidebar} />
           </div>
         )}
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={pathname}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
+        {children}
       </main>
     </CompanyCheck>
   );

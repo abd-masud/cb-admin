@@ -6,7 +6,7 @@ import dummy from "../../../public/images/dummy.webp";
 import { useAuth } from "@/contexts/AuthContext";
 import { FaUpload } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
-import { useAccUserRedirect } from "@/hooks/useAccUser";
+import { useAccAdminRedirect } from "@/hooks/useAccAdmin";
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
@@ -35,7 +35,7 @@ export const ProfileCompound = () => {
   const cropperRef = useRef<ReactCropperElement>(null);
   const logoCropperRef = useRef<ReactCropperElement>(null);
   const [originalLogoType, setOriginalLogoType] = useState<string>("");
-  useAccUserRedirect();
+  useAccAdminRedirect();
 
   useEffect(() => {
     if (user) {
@@ -184,7 +184,7 @@ export const ProfileCompound = () => {
       if (response.ok) {
         const result = await response.json();
         if (result.success) {
-          localStorage.setItem("cb_user", result.token);
+          localStorage.setItem("cb_admin", result.token);
           setIsEditMode(false);
           window.location.href = "/profile";
         } else {
